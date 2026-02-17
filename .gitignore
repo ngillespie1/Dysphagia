@@ -1,0 +1,27 @@
+# Flutter & Dart SDKs (downloaded, not project code)
+flutter/
+dart-sdk/
+
+# Downloaded archives
+*.zip
+*.tar.gz
+
+# Build & analysis output
+analyze_out.txt
+analyze_err.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Pub cache
+.pub-cache/
+.dart_tool/
+
+# Flutter/Dart build artifacts
+**/build/

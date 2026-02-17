@@ -1,0 +1,36 @@
+Placeholder Images
+==================
+
+Add the following images to this folder:
+
+1. exercise_thumbnail_default.png (1080x720)
+   - Default thumbnail for exercises without a preview image
+   - Should show a person silhouette in exercise pose
+
+2. onboarding_1.png (750x750)
+   - Illustration for first onboarding screen (recovery theme)
+
+3. onboarding_2.png (750x750)
+   - Illustration for second onboarding screen (video exercises theme)
+
+4. onboarding_3.png (750x750)
+   - Illustration for third onboarding screen (progress tracking theme)
+
+5. empty_state_progress.png (400x400)
+   - Shown when user has no progress data yet
+
+6. empty_state_exercises.png (400x400)
+   - Shown when no exercises are available
+
+7. avatar_default.png (200x200)
+   - Default user avatar
+
+Recommended Resources:
+- unDraw (undraw.co) - Free illustrations
+- Humaaans (humaaans.com) - Customizable human illustrations
+- Storyset (storyset.com) - Animated illustrations
+
+Image Guidelines:
+- Use PNG format with transparency where appropriate
+- Optimize for mobile (compress with tools like TinyPNG)
+- Follow the mint/coral accent color scheme

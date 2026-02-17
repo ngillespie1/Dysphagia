@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Users collection - only accessible by owner
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+      
+      // Sessions subcollection
+      match /sessions/{sessionId} {
+        allow read, write: if isOwner(userId);
+      }
+      
+      // Symptoms subcollection
+      match /symptoms/{dateKey} {
+        allow read, write: if isOwner(userId);
+      }
+      
+      // AI Conversations subcollection
+      match /aiConversations/{conversationId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+    
+    // Programs collection - read only for authenticated users
+    match /programs/{programId} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Admin only via console
+    }
+    
+    // Exercises collection - read only for authenticated users
+    match /exercises/{exerciseId} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Admin only via console
+    }
+  }
+}

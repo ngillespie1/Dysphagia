@@ -1,0 +1,47 @@
+Lottie Animations
+=================
+
+Add the following Lottie JSON animations to this folder:
+
+1. celebration_confetti.json
+   - Confetti/celebration animation for session complete screen
+   - Duration: 2-3 seconds
+   - Recommended: LottieFiles "confetti" or "celebration"
+
+2. streak_fire.json
+   - Animated flame icon for streak display
+   - Duration: 1-2 seconds, looping
+   - Recommended: LottieFiles "fire" or "flame"
+
+3. loading_ring.json
+   - Circular loading animation
+   - Duration: 1 second, looping
+   - Match accent color (mint green #00C9A7)
+
+4. success_check.json
+   - Checkmark animation for completion
+   - Duration: 1 second
+   - Recommended: LottieFiles "success" or "check"
+
+5. achievement_unlock.json
+   - Animation for unlocking achievements
+   - Duration: 2 seconds
+   - Should include sparkle/shine effect
+
+Resources:
+- LottieFiles (lottiefiles.com) - Free Lottie animations
+- IconScout (iconscout.com/lottie) - Lottie library
+- Lordicon (lordicon.com) - Animated icons
+
+Usage in Flutter:
+```dart
+import 'package:lottie/lottie.dart';
+
+Lottie.asset(
+  'assets/animations/celebration_confetti.json',
+  repeat: false,
+  animate: true,
+);
+```
+
+Note: Add lottie: ^3.0.0 to pubspec.yaml dependencies
