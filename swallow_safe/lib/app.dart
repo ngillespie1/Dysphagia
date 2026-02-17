@@ -9,6 +9,7 @@ import 'features/ai_assistant/bloc/ai_chat_bloc.dart';
 import 'features/gamification/bloc/gamification_bloc.dart';
 import 'features/progress/bloc/streak_bloc.dart';
 import 'features/program/bloc/program_bloc.dart';
+import 'features/program/bloc/program_event.dart';
 import 'features/onboarding/bloc/onboarding_bloc.dart';
 import 'features/settings/cubit/theme_cubit.dart';
 import 'features/user/bloc/user_bloc.dart';
@@ -31,7 +32,7 @@ class SwallowSafeApp extends StatelessWidget {
           create: (_) => getIt<StreakBloc>()..add(LoadStreakData()),
         ),
         BlocProvider(
-          create: (_) => getIt<ProgramBloc>(),
+          create: (_) => getIt<ProgramBloc>()..add(const LoadProgram()),
         ),
         BlocProvider(
           create: (_) => getIt<GamificationBloc>()..add(const LoadGamification()),

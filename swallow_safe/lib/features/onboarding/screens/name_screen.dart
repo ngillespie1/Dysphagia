@@ -60,6 +60,7 @@ class _NameScreenState extends State<NameScreen>
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
+        backgroundColor: PremiumTheme.background,
         body: Container(
           decoration: const BoxDecoration(
             gradient: PremiumTheme.backgroundGradient,
@@ -137,12 +138,16 @@ class _NameScreenState extends State<NameScreen>
                         controller: _nameController,
                         focusNode: _focusNode,
                         textCapitalization: TextCapitalization.words,
-                        style: PremiumTheme.headlineMedium,
+                        style: PremiumTheme.headlineMedium.copyWith(
+                          color: PremiumTheme.textPrimary,
+                        ),
                         decoration: InputDecoration(
                           hintText: 'Your name',
                           hintStyle: PremiumTheme.headlineMedium.copyWith(
                             color: PremiumTheme.textTertiary,
                           ),
+                          filled: true,
+                          fillColor: Colors.white,
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.all(20),
                         ),

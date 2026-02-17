@@ -31,12 +31,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   @override
   void initState() {
     super.initState();
-    // Kick off session loading when this screen is first entered
-    final bloc = context.read<SessionBloc>();
-    final currentState = bloc.state;
-    if (currentState is SessionInitial || currentState is SessionError) {
-      bloc.add(const LoadSession());
-    }
+    // Always reload the session when this screen opens,
+    // regardless of the current SessionBloc state (handles re-entry
+    // after SessionComplete, stale SessionReady, etc.)
+    context.read<SessionBloc>().add(const LoadSession());
   }
 
   @override
@@ -155,11 +153,23 @@ class _ExerciseViewState extends State<_ExerciseView>
     }
   }
 
+  void _skipExercise() {
+    HapticFeedback.lightImpact();
+    context.read<SessionBloc>().add(const CompleteExercise());
+  }
+
   @override
   Widget build(BuildContext context) {
     final exercise = widget.state.currentExercise;
 
-    return Scaffold(
+    return GestureDetector(
+      onHorizontalDragEnd: (details) {
+        // Swipe left to skip to next exercise
+        if (details.primaryVelocity != null && details.primaryVelocity! < -300) {
+          _skipExercise();
+        }
+      },
+      child: Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
         children: [
@@ -311,17 +321,51 @@ class _ExerciseViewState extends State<_ExerciseView>
 
                     const SizedBox(height: AppDimensions.spacingM),
 
-                    // Skip button
-                    TextButton(
-                      onPressed: () {
-                        HapticFeedback.lightImpact();
-                        context.read<SessionBloc>().add(const CompleteExercise());
-                      },
-                      child: Text(
-                        'Skip for now — no pressure',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.white.withOpacity(0.6),
+                    // Skip / Next exercise button — prominent
+                    GestureDetector(
+                      onTap: _skipExercise,
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.2),
+                          ),
                         ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.state.isLastExercise
+                                  ? 'Skip & finish'
+                                  : 'Skip to next exercise',
+                              style: GoogleFonts.plusJakartaSans(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white.withOpacity(0.85),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Icon(
+                              Icons.skip_next_rounded,
+                              color: Colors.white.withOpacity(0.85),
+                              size: 22,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    // Subtle swipe hint
+                    Text(
+                      'or swipe left to skip',
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 12,
+                        color: Colors.white.withOpacity(0.35),
                       ),
                     ),
                   ],
@@ -333,6 +377,7 @@ class _ExerciseViewState extends State<_ExerciseView>
           // Pause overlay
           if (widget.state.isPaused) _buildPauseOverlay(context),
         ],
+      ),
       ),
     );
   }

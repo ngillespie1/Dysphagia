@@ -258,31 +258,34 @@ class _SplashScreenState extends State<SplashScreen>
               ),
 
               // Main content
-              SafeArea(
-                child: Column(
-                  children: [
-                    const Spacer(flex: 2),
+              Positioned.fill(
+                child: SafeArea(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Spacer(flex: 2),
 
-                    // Composed logo with breathing glow
-                    _buildLogo(),
+                      // Composed logo with breathing glow
+                      _buildLogo(),
 
-                    const Spacer(flex: 1),
+                      const Spacer(flex: 1),
 
-                    // App name — staggered slide-up
-                    _buildAppName(),
+                      // App name — staggered slide-up
+                      _buildAppName(),
 
-                    const SizedBox(height: 12),
+                      const SizedBox(height: 12),
 
-                    // Tagline — staggered slide-up
-                    _buildTagline(),
+                      // Tagline — staggered slide-up
+                      _buildTagline(),
 
-                    const Spacer(flex: 2),
+                      const Spacer(flex: 2),
 
-                    // Breathing progress ring
-                    _buildBreathingRing(),
+                      // Breathing progress ring
+                      _buildBreathingRing(),
 
-                    const SizedBox(height: 48),
-                  ],
+                      const SizedBox(height: 48),
+                    ],
+                  ),
                 ),
               ),
             ],
